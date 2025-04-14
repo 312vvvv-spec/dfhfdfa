@@ -1,0 +1,2217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Synthar.cc Premium Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    /* Core Variables */
+    :root {
+      --primary: #7039d1;
+      --primary-dark: #5b26b5;
+      --primary-light: #8759e6;
+      --primary-glow: rgba(112, 57, 209, 0.4);
+      --accent: #ff3d71;
+      --accent-secondary: #00d68f;
+      --text-light: #f8f9fa;
+      --text-secondary: #c2c8d0;
+      --text-dark: #212529;
+      --bg-dark: #0d0e17;
+      --bg-card: #14151f;
+      --bg-card-secondary: #1c1e2a;
+      --card-border: rgba(255, 255, 255, 0.05);
+      --card-highlight: rgba(112, 57, 209, 0.1);
+      --bg-gradient: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      --bg-gradient-accent: linear-gradient(135deg, var(--primary-dark), var(--accent));
+      --success: #00d68f;
+      --warning: #ffaa00;
+      --danger: #ff3d71;
+      --info: #0095ff;
+      --transition-normal: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      --transition-bounce: all 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+      --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --shadow-md: 0 10px 25px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 15px 30px rgba(0, 0, 0, 0.1);
+      --shadow-glow: 0 0 20px var(--primary-glow);
+      --border-radius-sm: 8px;
+      --border-radius-md: 12px;
+      --border-radius-lg: 20px;
+    }
+
+    /* Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: var(--transition-normal);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(112, 57, 209, 0.07) 0%, transparent 70%),
+        radial-gradient(circle at 90% 80%, rgba(255, 61, 113, 0.07) 0%, transparent 70%),
+        radial-gradient(circle at 50% 50%, rgba(112, 57, 209, 0.03) 0%, transparent 100%);
+      background-attachment: fixed;
+      background-size: 200% 200%;
+      animation: gradientBackground 15s ease infinite;
+    }
+
+    @keyframes gradientBackground {
+      0% {
+        background-position: 0% 0%;
+      }
+      50% {
+        background-position: 100% 100%;
+      }
+      100% {
+        background-position: 0% 0%;
+      }
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* Card Effects */
+    .card {
+      background: var(--bg-card);
+      border-radius: var(--border-radius-lg);
+      padding: 40px;
+      box-shadow: 
+        0 20px 50px rgba(0, 0, 0, 0.3),
+        0 0 0 1px var(--card-border);
+      position: relative;
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+      width: 100%;
+      max-width: 450px;
+      animation: cardFadeIn 0.8s ease-out forwards;
+      transform: translateY(0);
+      transition: var(--transition-normal);
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      right: -5px;
+      bottom: -5px;
+      background: linear-gradient(45deg, var(--primary), var(--accent), var(--primary), var(--accent));
+      z-index: -1;
+      border-radius: calc(var(--border-radius-lg) + 5px);
+      opacity: 0.15;
+      animation: borderGlow 4s linear infinite;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg), var(--shadow-glow);
+    }
+
+    @keyframes cardFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes borderGlow {
+      0% {
+        background-position: 0% 0%;
+      }
+      50% {
+        background-position: 100% 100%;
+      }
+      100% {
+        background-position: 0% 0%;
+      }
+    }
+
+    /* Logo & Header Styles */
+    .logo-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 25px;
+      position: relative;
+    }
+
+    .logo {
+      display: flex;
+      justify-content: center;
+      animation: logoFloat 4s ease-in-out infinite;
+      position: relative;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--bg-gradient);
+      box-shadow: var(--shadow-md), 0 0 15px var(--primary-glow);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo i {
+      font-size: 2.5rem;
+      color: var(--text-light);
+      filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+    }
+
+    .logo-particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: var(--primary-light);
+      border-radius: 50%;
+      opacity: 0;
+      animation: particle-float 3s ease-in-out infinite;
+    }
+
+    .particle:nth-child(1) {
+      top: 20%;
+      left: 20%;
+      animation-delay: 0s;
+    }
+
+    .particle:nth-child(2) {
+      top: 80%;
+      left: 80%;
+      animation-delay: 0.3s;
+    }
+
+    .particle:nth-child(3) {
+      top: 20%;
+      left: 80%;
+      animation-delay: 0.6s;
+    }
+
+    .particle:nth-child(4) {
+      top: 80%;
+      left: 20%;
+      animation-delay: 0.9s;
+    }
+
+    .particle:nth-child(5) {
+      top: 50%;
+      left: 10%;
+      animation-delay: 1.2s;
+    }
+
+    .particle:nth-child(6) {
+      top: 50%;
+      left: 90%;
+      animation-delay: 1.5s;
+    }
+
+    @keyframes particle-float {
+      0%, 100% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+      }
+      50% {
+        transform: translateY(-15px) translateX(-5px);
+        opacity: 0.8;
+      }
+    }
+
+    @keyframes logoFloat {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .card h1 {
+      text-align: center;
+      margin-bottom: 15px;
+      background: linear-gradient(to right, var(--primary-light), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 2.2rem;
+      position: relative;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .card h1::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 3px;
+      background: var(--bg-gradient);
+      border-radius: 10px;
+      animation: pulseWidth 3s ease-in-out infinite;
+    }
+
+    @keyframes pulseWidth {
+      0%, 100% {
+        width: 50px;
+        opacity: 0.8;
+      }
+      50% {
+        width: 100px;
+        opacity: 1;
+      }
+    }
+
+    .card p {
+      text-align: center;
+      color: var(--text-secondary);
+      margin-bottom: 30px;
+      line-height: 1.7;
+      font-size: 0.97rem;
+      animation: fadeInUp 0.8s ease 0.2s forwards;
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 25px;
+      position: relative;
+      animation: fadeInUp 0.8s ease 0.4s forwards;
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--text-light);
+      font-weight: 500;
+      font-size: 0.9rem;
+      transform: translateX(0);
+      transition: var(--transition-normal);
+    }
+
+    .form-group i {
+      position: absolute;
+      left: 15px;
+      top: 47px;
+      color: var(--text-secondary);
+      transition: var(--transition-normal);
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 16px 20px 16px 45px;
+      border: 1px solid rgba(112, 57, 209, 0.2);
+      background-color: var(--bg-card-secondary);
+      color: var(--text-light);
+      border-radius: var(--border-radius-md);
+      outline: none;
+      font-size: 0.95rem;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition-normal);
+    }
+
+    .form-group input:focus {
+      border-color: var(--primary-light);
+      box-shadow: 
+        0 0 0 3px rgba(112, 57, 209, 0.2),
+        var(--shadow-sm);
+    }
+
+    .form-group input:focus + i {
+      color: var(--primary-light);
+      transform: translateX(-3px);
+    }
+
+    .form-group:hover label {
+      transform: translateX(3px);
+      color: var(--primary-light);
+    }
+
+    /* Enhanced Form Styles */
+    .form-group input.license-key-input {
+      font-family: 'Courier New', monospace;
+      letter-spacing: 1px;
+      text-align: center;
+      padding-left: 20px;
+      font-weight: 600;
+    }
+
+    .license-format-hint {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-top: 8px;
+      text-align: center;
+      opacity: 0.7;
+    }
+
+    /* Button Styles */
+    .btn {
+      width: 100%;
+      padding: 16px 30px;
+      border-radius: var(--border-radius-md);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition-bounce);
+      border: none;
+      outline: none;
+      font-size: 0.95rem;
+      position: relative;
+      overflow: hidden;
+      animation: fadeInUp 0.8s ease 0.6s forwards;
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    .btn::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 400%;
+      top: 50%;
+      left: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 100%;
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0;
+      transition: transform 0.5s, opacity 0.5s;
+    }
+
+    .btn:active::after {
+      width: 200%;
+      opacity: 0.3;
+      transform: translate(-50%, -50%) scale(1);
+      transition: transform 0s, opacity 0.3s;
+    }
+
+    .btn-primary {
+      background: var(--bg-gradient);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 
+        0 8px 20px rgba(112, 57, 209, 0.4),
+        var(--shadow-md);
+    }
+
+    .btn-primary:active {
+      transform: translateY(1px) scale(0.98);
+    }
+
+    .btn i {
+      font-size: 1.1rem;
+      transition: transform 0.3s ease;
+    }
+
+    .btn:hover i {
+      transform: translateX(3px);
+    }
+
+    .btn-secondary {
+      background: rgba(112, 57, 209, 0.05);
+      color: var(--text-light);
+      border: 2px solid var(--primary);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(112, 57, 209, 0.15);
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Login Card Features */
+    .login-features {
+      margin-top: 30px;
+      border-top: 1px solid var(--card-border);
+      padding-top: 20px;
+      animation: fadeInUp 0.8s ease 0.8s forwards;
+      opacity: 0;
+    }
+
+    .login-features h3 {
+      text-align: center;
+      font-size: 1rem;
+      color: var(--text-light);
+      margin-bottom: 15px;
+      opacity: 0.9;
+    }
+
+    .feature-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .feature-item i {
+      color: var(--primary-light);
+      font-size: 0.9rem;
+    }
+
+    /* Error Message */
+    .error-message {
+      color: var(--danger);
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.9rem;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      background: rgba(255, 61, 113, 0.1);
+      padding: 12px;
+      border-radius: var(--border-radius-sm);
+      border-left: 3px solid var(--danger);
+    }
+
+    .error-message.show {
+      opacity: 1;
+      transform: translateY(0);
+      animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    }
+
+    @keyframes shake {
+      10%, 90% {
+        transform: translateX(-1px);
+      }
+      20%, 80% {
+        transform: translateX(2px);
+      }
+      30%, 50%, 70% {
+        transform: translateX(-3px);
+      }
+      40%, 60% {
+        transform: translateX(3px);
+      }
+    }
+
+    /* Security Badges */
+    .security-badges {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+      animation: fadeInUp 0.8s ease 1s forwards;
+      opacity: 0;
+    }
+
+    .security-badge {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    .security-badge i {
+      color: var(--success);
+      font-size: 0.8rem;
+    }
+
+    /* Dashboard Styles */
+    #dashboard-card {
+      display: none;
+      max-width: 1000px;
+    }
+
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 20px;
+      animation: fadeInDown 0.8s ease-out forwards;
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .dashboard-title {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .dashboard-title h1 {
+      text-align: left;
+      margin-bottom: 0;
+    }
+
+    .dashboard-title h1::after {
+      display: none;
+    }
+
+    .dashboard-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .user-welcome {
+      color: var(--text-secondary);
+      margin-bottom: 30px;
+      font-size: 1.05rem;
+      animation: fadeInUp 0.8s ease 0.2s forwards;
+      opacity: 0;
+      padding-left: 5px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .user-welcome .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--bg-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .dashboard-status-bar {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 30px;
+      animation: fadeInUp 0.8s ease 0.3s forwards;
+      opacity: 0;
+    }
+
+    .status-item {
+      flex: 1;
+      padding: 15px;
+      background: var(--bg-card-secondary);
+      border-radius: var(--border-radius-md);
+      border: 1px solid var(--card-border);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: var(--transition-normal);
+    }
+
+    .status-item:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+      border-color: rgba(112, 57, 209, 0.2);
+    }
+
+    .status-label {
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .status-label i {
+      color: var(--primary-light);
+    }
+
+    .status-value {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .dashboard-content {
+      display: grid;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    @media (min-width: 768px) {
+      .dashboard-content {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 992px) {
+      .dashboard-content {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .section {
+      background: var(--bg-card-secondary);
+      border-radius: var(--border-radius-md);
+      padding: 25px;
+      border: 1px solid var(--card-border);
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition-normal);
+      animation: sectionFadeIn 0.8s ease forwards;
+      opacity: 0;
+      transform: translateY(15px);
+    }
+
+    .section:nth-child(1) { animation-delay: 0.1s; }
+    .section:nth-child(2) { animation-delay: 0.2s; }
+    .section:nth-child(3) { animation-delay: 0.3s; }
+    .section:nth-child(4) { animation-delay: 0.4s; }
+    .section:nth-child(5) { animation-delay: 0.5s; }
+    .section:nth-child(6) { animation-delay: 0.6s; }
+
+    @keyframes sectionFadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .section:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+      border-color: rgba(112, 57, 209, 0.2);
+    }
+
+    .section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background: var(--bg-gradient);
+      transition: var(--transition-normal);
+    }
+
+    .section:hover::before {
+      width: 7px;
+    }
+
+    .section-icon {
+      margin-bottom: 20px;
+      width: 45px;
+      height: 45px;
+      border-radius: var(--border-radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(112, 57, 209, 0.1);
+      transition: var(--transition-normal);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section:hover .section-icon {
+      background: rgba(112, 57, 209, 0.2);
+      transform: translateY(-3px) scale(1.05);
+    }
+
+    .section-icon i {
+      font-size: 1.4rem;
+      color: var(--primary-light);
+      transition: var(--transition-normal);
+      z-index: 1;
+    }
+
+    .section:hover .section-icon i {
+      transform: scale(1.1);
+    }
+
+    .section-icon::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--bg-gradient);
+      opacity: 0;
+      transition: var(--transition-normal);
+    }
+
+    .section:hover .section-icon::after {
+      opacity: 0.2;
+    }
+
+    .section h2 {
+      color: var(--text-light);
+      margin-bottom: 20px;
+      font-size: 1.15rem;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section h2::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 30px;
+      height: 2px;
+      background: var(--primary);
+      border-radius: 10px;
+      transition: var(--transition-normal);
+    }
+
+    .section:hover h2::after {
+      width: 100%;
+    }
+
+    .info-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--card-border);
+      transition: var(--transition-normal);
+    }
+
+    .info-item:last-child {
+      border-bottom: none;
+    }
+
+    .info-item:hover {
+      background: var(--card-highlight);
+      padding-left: 10px;
+      padding-right: 10px;
+      border-radius: var(--border-radius-sm);
+    }
+
+    .info-label {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      transition: var(--transition-normal);
+    }
+
+    .info-item:hover .info-label {
+      color: var(--text-light);
+    }
+
+    .info-value {
+      font-weight: 500;
+      transition: var(--transition-normal);
+    }
+
+    .info-item:hover .info-value {
+      transform: translateX(-5px);
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 12px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      transition: var(--transition-normal);
+    }
+
+    .badge-success {
+      background: rgba(0, 214, 143, 0.1);
+      color: var(--success);
+      border: 1px solid rgba(0, 214, 143, 0.2);
+    }
+
+    .badge-success:hover {
+      background: rgba(0, 214, 143, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .badge-primary {
+      background: rgba(112, 57, 209, 0.1);
+      color: var(--primary-light);
+      border: 1px solid rgba(112, 57, 209, 0.2);
+    }
+
+    .badge-primary:hover {
+      background: rgba(112, 57, 209, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .badge-warning {
+      background: rgba(255, 170, 0, 0.1);
+      color: var(--warning);
+      border: 1px solid rgba(255, 170, 0, 0.2);
+    }
+
+    .badge-warning:hover {
+      background: rgba(255, 170, 0, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .badge i {
+      margin-right: 5px;
+      font-size: 0.8rem;
+      transition: var(--transition-normal);
+    }
+
+    .badge:hover i {
+      transform: scale(1.2);
+    }
+
+    /* Discord Roles Section */
+    #discord-roles-section {
+      text-align: center;
+      grid-column: 1 / -1;
+    }
+
+    #discord-roles-list {
+      margin-top: 20px;
+      text-align: left;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease 0.6s forwards;
+    }
+
+    #discord-roles-list ul {
+      list-style-type: none;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+    }
+
+    #discord-roles-list li {
+      background: rgba(112, 57, 209, 0.05);
+      padding: 12px 15px;
+      border-radius: var(--border-radius-sm);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border: 1px solid var(--card-border);
+      transition: var(--transition-normal);
+      transform: translateY(0);
+    }
+
+    #discord-roles-list li:hover {
+      background: rgba(112, 57, 209, 0.1);
+      transform: translateY(-3px);
+      border-color: rgba(112, 57, 209, 0.2);
+      box-shadow: var(--shadow-sm);
+    }
+
+    #discord-roles-list li i {
+      color: var(--primary-light);
+      transition: var(--transition-normal);
+    }
+
+    #discord-roles-list li:hover i {
+      transform: scale(1.2);
+    }
+
+    /* Enhanced Dashboard Sections */
+    .actions-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .action-btn {
+      padding: 10px;
+      background: rgba(112, 57, 209, 0.05);
+      border-radius: var(--border-radius-sm);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      text-align: center
+	}
+color: var(--text-secondary);
+              border: 1px solid var(--card-border);
+              transition: var(--transition-normal);
+              text-decoration: none;
+            }
+
+            .action-btn:hover {
+              background: rgba(112, 57, 209, 0.1);
+              transform: translateY(-3px);
+              border-color: rgba(112, 57, 209, 0.2);
+              box-shadow: var(--shadow-sm);
+              color: var(--text-light);
+            }
+
+            .action-btn i {
+              font-size: 1.2rem;
+              color: var(--primary-light);
+              transition: var(--transition-normal);
+            }
+
+            .action-btn:hover i {
+              transform: scale(1.2);
+            }
+
+            .action-btn-label {
+              font-size: 0.8rem;
+              font-weight: 500;
+            }
+
+            /* News and updates section */
+            .news-item {
+              margin-bottom: 15px;
+              padding-bottom: 15px;
+              border-bottom: 1px solid var(--card-border);
+            }
+
+            .news-item:last-child {
+              margin-bottom: 0;
+              padding-bottom: 0;
+              border-bottom: none;
+            }
+
+            .news-date {
+              display: inline-block;
+              font-size: 0.75rem;
+              color: var(--text-secondary);
+              margin-bottom: 5px;
+              background: rgba(112, 57, 209, 0.1);
+              padding: 2px 8px;
+              border-radius: 20px;
+            }
+
+            .news-title {
+              font-weight: 600;
+              color: var(--text-light);
+              margin-bottom: 5px;
+            }
+
+            .news-content {
+              font-size: 0.85rem;
+              color: var(--text-secondary);
+              line-height: 1.5;
+            }
+
+            /* Software Usage Statistics */
+            .usage-chart {
+              height: 150px;
+              margin: 15px 0;
+              position: relative;
+              display: flex;
+              align-items: flex-end;
+              gap: 10px;
+            }
+
+            .chart-bar {
+              flex: 1;
+              background: var(--bg-gradient);
+              border-radius: 4px 4px 0 0;
+              position: relative;
+              min-height: 20px;
+              animation: barGrow 2s ease-out forwards;
+              opacity: 0;
+              transform: scaleY(0);
+              transform-origin: bottom;
+            }
+
+            .chart-bar:nth-child(1) { animation-delay: 0.1s; height: 50%; }
+            .chart-bar:nth-child(2) { animation-delay: 0.2s; height: 75%; }
+            .chart-bar:nth-child(3) { animation-delay: 0.3s; height: 65%; }
+            .chart-bar:nth-child(4) { animation-delay: 0.4s; height: 90%; }
+            .chart-bar:nth-child(5) { animation-delay: 0.5s; height: 60%; }
+            .chart-bar:nth-child(6) { animation-delay: 0.6s; height: 85%; }
+            .chart-bar:nth-child(7) { animation-delay: 0.7s; height: 70%; }
+
+            @keyframes barGrow {
+              to {
+                opacity: 1;
+                transform: scaleY(1);
+              }
+            }
+
+            .chart-bar:hover {
+              filter: brightness(1.2);
+              box-shadow: 0 0 10px var(--primary-glow);
+            }
+
+            .chart-bar::after {
+              content: attr(data-value);
+              position: absolute;
+              top: -25px;
+              left: 50%;
+              transform: translateX(-50%);
+              font-size: 0.7rem;
+              font-weight: 600;
+              color: var(--text-light);
+              opacity: 0;
+              transition: var(--transition-normal);
+            }
+
+            .chart-bar:hover::after {
+              opacity: 1;
+            }
+
+            .chart-labels {
+              display: flex;
+              justify-content: space-between;
+              margin-top: 5px;
+            }
+
+            .chart-label {
+              font-size: 0.7rem;
+              color: var(--text-secondary);
+              text-align: center;
+              flex: 1;
+            }
+
+            /* Dashboard Footer */
+            .dashboard-footer {
+              display: flex;
+              flex-direction: column;
+              gap: 15px;
+              animation: fadeInUp 0.8s ease 0.7s forwards;
+              opacity: 0;
+            }
+
+            .installation-link {
+              display: flex;
+              align-items: center;
+              gap: 15px;
+              padding: 18px;
+              background: var(--bg-card-secondary);
+              border-radius: var(--border-radius-md);
+              color: var(--text-light);
+              text-decoration: none;
+              border: 1px solid var(--card-border);
+              margin-bottom: 20px;
+              transition: var(--transition-bounce);
+              position: relative;
+              overflow: hidden;
+            }
+
+            .installation-link::before {
+              content: '';
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 3px;
+              height: 100%;
+              background: var(--bg-gradient);
+              transition: var(--transition-normal);
+            }
+
+            .installation-link:hover {
+              background: rgba(112, 57, 209, 0.05);
+              transform: translateY(-5px);
+              border-color: rgba(112, 57, 209, 0.2);
+              box-shadow: var(--shadow-md);
+            }
+
+            .installation-link:hover::before {
+              width: 5px;
+            }
+
+            .installation-link i {
+              color: var(--primary-light);
+              font-size: 1.3rem;
+              transition: var(--transition-normal);
+            }
+
+            .installation-link:hover i {
+              transform: scale(1.2) rotate(-10deg);
+            }
+
+            /* User Stats Section */
+            .stats-container {
+              display: flex;
+              justify-content: space-between;
+              gap: 10px;
+              margin-top: 15px;
+            }
+
+            .stat-box {
+              flex: 1;
+              padding: 10px;
+              background: rgba(112, 57, 209, 0.05);
+              border-radius: var(--border-radius-sm);
+              text-align: center;
+              border: 1px solid var(--card-border);
+              transition: var(--transition-normal);
+            }
+
+            .stat-box:hover {
+              background: rgba(112, 57, 209, 0.1);
+              transform: translateY(-3px);
+              border-color: rgba(112, 57, 209, 0.2);
+            }
+
+            .stat-value {
+              font-size: 1.3rem;
+              font-weight: 600;
+              color: var(--text-light);
+              margin-bottom: 5px;
+            }
+
+            .stat-label {
+              font-size: 0.75rem;
+              color: var(--text-secondary);
+            }
+
+            /* Quick Actions Panel */
+            .quick-actions {
+              margin-top: 15px;
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              gap: 10px;
+            }
+
+            .quick-action-btn {
+              padding: 12px 10px;
+              background: rgba(112, 57, 209, 0.05);
+              border-radius: var(--border-radius-sm);
+              border: 1px solid var(--card-border);
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              gap: 8px;
+              transition: var(--transition-normal);
+              text-decoration: none;
+              color: var(--text-secondary);
+            }
+
+            .quick-action-btn:hover {
+              background: rgba(112, 57, 209, 0.1);
+              transform: translateY(-3px);
+              border-color: rgba(112, 57, 209, 0.2);
+              box-shadow: var(--shadow-sm);
+              color: var(--text-light);
+            }
+
+            .quick-action-btn i {
+              font-size: 1.2rem;
+              color: var(--primary-light);
+              transition: var(--transition-normal);
+            }
+
+            .quick-action-btn:hover i {
+              transform: scale(1.2);
+            }
+
+            /* Support Section */
+            .support-options {
+              display: grid;
+              grid-template-columns: repeat(2, 1fr);
+              gap: 15px;
+              margin-top: 15px;
+            }
+
+            .support-option {
+              background: rgba(112, 57, 209, 0.05);
+              border-radius: var(--border-radius-sm);
+              border: 1px solid var(--card-border);
+              padding: 15px;
+              display: flex;
+              flex-direction: column;
+              gap: 10px;
+              transition: var(--transition-normal);
+            }
+
+            .support-option:hover {
+              background: rgba(112, 57, 209, 0.1);
+              transform: translateY(-3px);
+              border-color: rgba(112, 57, 209, 0.2);
+              box-shadow: var(--shadow-sm);
+            }
+
+            .support-icon {
+              width: 40px;
+              height: 40px;
+              border-radius: var(--border-radius-sm);
+              background: rgba(112, 57, 209, 0.1);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+
+            .support-icon i {
+              color: var(--primary-light);
+              font-size: 1.2rem;
+            }
+
+            .support-title {
+              font-weight: 600;
+              font-size: 0.95rem;
+              color: var(--text-light);
+            }
+
+            .support-desc {
+              font-size: 0.8rem;
+              color: var(--text-secondary);
+              line-height: 1.5;
+            }
+
+            .support-link {
+              color: var(--primary-light);
+              text-decoration: none;
+              font-size: 0.85rem;
+              font-weight: 500;
+              display: flex;
+              align-items: center;
+              gap: 5px;
+              margin-top: 5px;
+              align-self: flex-start;
+            }
+
+            .support-link i {
+              font-size: 0.7rem;
+              transition: var(--transition-normal);
+            }
+
+            .support-link:hover i {
+              transform: translateX(3px);
+            }
+
+            /* License Status Indicator */
+            .license-status {
+              position: relative;
+              padding: 15px;
+              border-radius: var(--border-radius-md);
+              background: rgba(0, 214, 143, 0.05);
+              border: 1px solid rgba(0, 214, 143, 0.2);
+              margin-top: 15px;
+              animation: pulseBorder 3s infinite;
+            }
+
+            @keyframes pulseBorder {
+              0%, 100% {
+                border-color: rgba(0, 214, 143, 0.2);
+              }
+              50% {
+                border-color: rgba(0, 214, 143, 0.5);
+              }
+            }
+
+            .license-status-icon {
+              position: absolute;
+              top: -15px;
+              left: 20px;
+              width: 30px;
+              height: 30px;
+              border-radius: 50%;
+              background: var(--success);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              box-shadow: var(--shadow-sm);
+            }
+
+            .license-status-icon i {
+              color: white;
+              font-size: 0.8rem;
+            }
+
+            .license-status-title {
+              font-weight: 600;
+              margin-bottom: 5px;
+              color: var(--success);
+            }
+
+            .license-status-desc {
+              font-size: 0.85rem;
+              color: var(--text-secondary);
+            }
+
+            /* Responsive Styles */
+            @media (max-width: 768px) {
+              .dashboard-content {
+                grid-template-columns: 1fr;
+              }
+              
+              .dashboard-status-bar,
+              .support-options,
+              .quick-actions {
+                grid-template-columns: repeat(2, 1fr);
+              }
+            }
+
+            @media (max-width: 480px) {
+              .container {
+                padding: 20px 15px;
+              }
+
+              .card {
+                padding: 30px 20px;
+              }
+              
+              .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+              }
+              
+              .dashboard-actions {
+                width: 100%;
+              }
+              
+              .dashboard-status-bar,
+              .support-options,
+              .quick-actions,
+              .feature-list,
+              .actions-grid {
+                grid-template-columns: 1fr;
+              }
+              
+              .section {
+                padding: 20px;
+              }
+            }
+
+            /* Loading Animation */
+            .loading-overlay {
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              background: var(--bg-dark);
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              z-index: 9999;
+              transition: opacity 0.5s ease, visibility 0.5s ease;
+            }
+
+            .loading-spinner {
+              width: 48px;
+              height: 48px;
+              position: relative;
+            }
+
+            .loading-spinner::before,
+            .loading-spinner::after {
+              content: '';
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              border-radius: 50%;
+              background: var(--bg-gradient);
+              opacity: 0.7;
+              animation: pulse 2s ease-in-out infinite;
+            }
+
+            .loading-spinner::after {
+              animation-delay: -1s;
+            }
+
+            @keyframes pulse {
+              0%, 100% {
+                transform: scale(0);
+              }
+              50% {
+                transform: scale(1);
+              }
+            }
+
+            .loading-overlay.hidden {
+              opacity: 0;
+              visibility: hidden;
+            }
+
+            /* Tooltip Styles */
+            .tooltip {
+              position: relative;
+            }
+
+            .tooltip:hover::before {
+              content: attr(data-tooltip);
+              position: absolute;
+              top: -40px;
+              left: 50%;
+              transform: translateX(-50%);
+              padding: 8px 12px;
+              background: var(--bg-card);
+              color: var(--text-light);
+              font-size: 0.8rem;
+              border-radius: var(--border-radius-sm);
+              white-space: nowrap;
+              z-index: 10;
+              box-shadow: var(--shadow-md);
+              border: 1px solid var(--card-border);
+            }
+
+            .tooltip:hover::after {
+              content: '';
+              position: absolute;
+              top: -10px;
+              left: 50%;
+              transform: translateX(-50%);
+              border: 6px solid transparent;
+              border-top-color: var(--bg-card);
+              z-index: 10;
+            }
+
+            /* Notifications */
+            .notification {
+              position: fixed;
+              right: 20px;
+              bottom: 20px;
+              padding: 15px 20px;
+              background: var(--bg-card);
+              border-radius: var(--border-radius-md);
+              box-shadow: var(--shadow-lg);
+              border-left: 4px solid var(--primary);
+              display: flex;
+              align-items: center;
+              gap: 15px;
+              transform: translateX(120%);
+              transition: transform 0.5s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+              z-index: 9999;
+              max-width: 350px;
+            }
+
+            .notification.show {
+              transform: translateX(0);
+            }
+
+            .notification-icon {
+              color: var(--primary-light);
+              font-size: 1.3rem;
+            }
+
+            .notification-content {
+              flex: 1;
+            }
+
+            .notification-title {
+              font-weight: 600;
+              margin-bottom: 5px;
+            }
+
+            .notification-message {
+              font-size: 0.9rem;
+              color: var(--text-secondary);
+            }
+
+            .notification-close {
+              color: var(--text-secondary);
+              cursor: pointer;
+              padding: 5px;
+              border-radius: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              transition: var(--transition-normal);
+            }
+
+            .notification-close:hover {
+              background: rgba(255, 255, 255, 0.1);
+              color: var(--text-light);
+            }
+          </style>
+        </head>
+        <body>
+          <!-- Loading Overlay -->
+          <div class="loading-overlay" id="loading-overlay">
+            <div class="loading-spinner"></div>
+          </div>
+
+          <div class="container">
+            <!-- Login Card -->
+            <div class="card" id="login-card">
+              <div class="logo-container">
+                <div class="logo">
+                  <i class="fas fa-shield-alt"></i>
+                  <div class="logo-particles">
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                  </div>
+                </div>
+              </div>
+              
+              <h1>Synthar.cc</h1>
+              <p>Enter your premium license key to access the exclusive dashboard, downloads, and community features.</p>
+              
+              <form id="license-form">
+                <div class="form-group">
+                  <label for="license">License Key</label>
+                  <i class="fas fa-key"></i>
+                  <input type="text" id="license" name="license" class="license-key-input" placeholder="XXXXX-XXXXX-XXXXX-XXXXX" required>
+                  <div class="license-format-hint">Format: XXXXX-XXXXX-XXXXX-XXXXX</div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">
+                  <i class="fas fa-unlock-alt"></i>
+                  Activate License
+                </button>
+              </form>
+              
+              <div class="login-features">
+                <h3>Premium Features</h3>
+                <div class="feature-list">
+                  <div class="feature-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Priority Support</span>
+                  </div>
+                  <div class="feature-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Lifetime Updates</span>
+                  </div>
+                  <div class="feature-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Exclusive Modules</span>
+                  </div>
+                  <div class="feature-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Community Access</span>
+                  </div>
+                  <div class="feature-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Advanced Features</span>
+                  </div>
+                  <div class="feature-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Early-Access Beta</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="security-badges">
+                <div class="security-badge">
+                  <i class="fas fa-lock"></i>
+                  <span>Secure Login</span>
+                </div>
+                <div class="security-badge">
+                  <i class="fas fa-shield-alt"></i>
+                  <span>Protected License</span>
+                </div>
+              </div>
+              
+              <div id="error-message" class="error-message"></div>
+            </div>
+            
+            <!-- Dashboard Card -->
+            <div class="card" id="dashboard-card">
+              <div class="dashboard-header">
+                <div class="dashboard-title">
+                  <i class="fas fa-shield-alt" style="font-size: 1.8rem; color: var(--primary-light);"></i>
+                  <h1>Synthar.cc</h1>
+                </div>
+                <div class="dashboard-actions">
+                  <button id="logout-btn" class="btn btn-secondary">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                  </button>
+                </div>
+              </div>
+              
+              <div class="user-welcome">
+                <div class="user-avatar" id="user-avatar">U</div>
+                <span>Welcome back, <strong id="username-display">User</strong>!</span>
+              </div>
+              
+              <div class="dashboard-status-bar">
+                <div class="status-item">
+                  <div class="status-label">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>License Status</span>
+                  </div>
+                  <div class="status-value">Active</div>
+                </div>
+                <div class="status-item">
+                  <div class="status-label">
+                    <i class="fas fa-clock"></i>
+                    <span>Valid Until</span>
+                  </div>
+                  <div class="status-value" id="license-expiry">Lifetime</div>
+                </div>
+                <div class="status-item">
+                  <div class="status-label">
+                    <i class="fas fa-code-branch"></i>
+                    <span>Version</span>
+                  </div>
+                  <div class="status-value">v2.3.1</div>
+                </div>
+              </div>
+              
+              <div class="dashboard-content">
+                <div class="section">
+                  <div class="section-icon">
+                    <i class="fas fa-user"></i>
+                  </div>
+                  <h2>User Information</h2>
+                  <div id="user-info">
+                    <div class="info-item">
+                      <span class="info-label">Username</span>
+                      <span class="info-value" id="info-username">User</span>
+                    </div>
+                    <div class="info-item">
+                      <span class="info-label">IP Address</span>
+                      <span class="info-value" id="info-ip">127.0.0.1</span>
+                    </div>
+                    <div class="info-item">
+                      <span class="info-label">Last Login</span>
+                      <span class="info-value" id="info-lastlogin">April 14, 2025</span>
+                    </div>
+                    <div class="info-item">
+                      <span class="info-label">Created</span>
+                      <span class="info-value" id="info-created">January 1, 2025</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="section">
+                  <div class="section-icon">
+                    <i class="fas fa-credit-card"></i>
+                  </div>
+                  <h2>Subscription Details</h2>
+                  <div id="subscription-info">
+                    <div class="info-item">
+                      <span class="info-label">Plan</span>
+                      <span class="info-value badge badge-primary" id="info-plan">
+                        <i class="fas fa-gem"></i>
+                        Premium
+                      </span>
+                    </div>
+                    <div class="info-item">
+                      <span class="info-label">Status</span>
+                      <span class="info-value badge badge-success">
+                        <i class="fas fa-check-circle"></i>
+                        Active
+                      </span>
+                    </div>
+                    <div class="info-item">
+                      <span class="info-label">Renewal</span>
+                      <span class="info-value" id="info-renewal">Auto-Renewal</span>
+                    </div>
+                    <div class="license-status">
+                      <div class="license-status-icon">
+                        <i class="fas fa-check"></i>
+                      </div>
+                      <div class="license-status-title">License Verified</div>
+                      <div class="license-status-desc">Your license is active and verified for all premium features.</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="section">
+                  <div class="section-icon">
+                    <i class="fas fa-download"></i>
+                  </div>
+                  <h2>Downloads</h2>
+                  <div class="info-item">
+                    <span class="info-label">Latest Version (Get Discord Roles)</span>
+                    <span class="info-value">2.3.1</span>
+                  </div>
+                  <div class="info-item">
+                    <span class="info-label">Release Date</span>
+                    <span class="info-value">April 10, 2025</span>
+                  </div>
+                  <div class="info-item">
+                    <span class="info-label">Status</span>
+                    <span class="info-value badge badge-success">
+                      <i class="fas fa-check-circle"></i>
+                      Available
+                    </span>
+                  </div>
+                </div>
+               
+               
+                  
+                
+                <div class="section" id="discord-roles-section">
+                  <div class="section-icon">
+                    <i class="fab fa-discord"></i>
+                  </div>
+                  <h2>Discord Integration</h2>
+                  <p style="margin-bottom: 15px;">Claim your customer Roles On Our Server, To Claim The Download in #Download</p>
+                  <button id="get-discord-roles-btn" class="btn btn-primary">
+                    <i class="fas fa-user-tag"></i>
+                    Claim Discord Role
+                  </button>
+                  <div id="discord-roles-list">
+                    <ul>
+                      <li>
+                        <i class="fas fa-crown"></i>
+                        <span>Premium Member</span>
+                      </li>
+                      <li>
+                        <i class="fas fa-gem"></i>
+                        <span>Licensed User</span>
+                      </li>
+                      <li>
+                        <i class="fas fa-star"></i>
+                        <span>Early Adopter</span>
+                      </li>
+                      <li>
+                        <i class="fas fa-certificate"></i>
+                        <span>Beta Tester</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                
+               
+              
+              <div class="dashboard-footer">
+                <a href="https://installation.gitbook.io/synthar.cc-guide" target="_blank" class="installation-link">
+                  <i class="fas fa-book"></i>
+                  <div>
+                    <strong>Installation Guide</strong>
+                    <div style="font-size: 0.8rem; color: var(--text-secondary);">Step-by-step setup instructions for optimal performance</div>
+                  </div>
+                </a>
+               
+              </div>
+            </div>
+          </div>
+          
+          <!-- Notification -->
+          <div class="notification" id="notification">
+            <div class="notification-icon">
+              <i class="fas fa-info-circle"></i>
+            </div>
+            <div class="notification-content">
+              <div class="notification-title">License Activated</div>
+              <div class="notification-message">Your premium license has been successfully activated.</div>
+            </div>
+            <div class="notification-close" id="notification-close">
+              <i class="fas fa-times"></i>
+            </div>
+          </div>
+          
+          <script>
+            // Inline client.js code to avoid needing to serve it separately
+            document.addEventListener('DOMContentLoaded', function() {
+              // KeyAuth client-side implementation
+              class KeyAuthClient {
+                constructor(options) {
+                  this.url = "https://keyauth.win/api/1.3/";
+                  this.name = options.name;
+                  this.ownerid = options.ownerid;
+                  this.version = options.version;
+                  this.sessionid = null;
+                  this.initialized = false;
+                  this.user_data = null;
+                  this.app_data = null;
+                }
+                
+                async init() {
+                  if (this.sessionid && this.initialized) {
+                    console.log("Application already initialized");
+                    return;
+                  }
+                  
+                  const post_data = {
+                    type: "init",
+                    name: this.name,
+                    ownerid: this.ownerid,
+                    version: this.version
+                  };
+                  
+                  try {
+                    const response = await this._doRequest(post_data);
+                    
+                    if (response === "KeyAuth_Invalid") {
+                      throw new Error("This application does not exist");
+                    }
+                    
+                    if (response["message"] === "invalidver") {
+                      if (response["download"]) {
+                        throw new Error("Your application is outdated. Please download the latest version.");
+                      } else {
+                        throw new Error("Your application is outdated. Please contact the application owner.");
+                      }
+                    }
+                    
+                    if (response["success"] === false) {
+                      throw new Error(response["message"]);
+                    }
+                    
+                    this.sessionid = response["sessionid"];
+                    this.initialized = true;
+                    return true;
+                  } catch (error) {
+                    console.error("Init error:", error);
+                    throw error;
+                  }
+                }
+                
+                async license(key) {
+                  if (!this.initialized) {
+                    throw new Error("Application not initialized");
+                  }
+                  
+                  const post_data = {
+                    type: "license",
+                    name: this.name,
+                    ownerid: this.ownerid,
+                    sessionid: this.sessionid,
+                    key: key
+                  };
+                  
+                  try {
+                    const response = await this._doRequest(post_data);
+                    
+                    if (response["success"] === true) {
+                      this._loadUserData(response["info"]);
+                      return true;
+                    } else {
+                      throw new Error(response["message"]);
+                    }
+                  } catch (error) {
+                    console.error("License error:", error);
+                    throw error;
+                  }
+                }
+                
+                async fetchStats() {
+                  if (!this.initialized) {
+                    throw new Error("Application not initialized");
+                  }
+                  
+                  const post_data = {
+                    type: "fetchStats",
+                    name: this.name,
+                    ownerid: this.ownerid,
+                    sessionid: this.sessionid
+                  };
+                  
+                  try {
+                    const response = await this._doRequest(post_data);
+                    
+                    if (response["success"] === true) {
+                      this._loadAppData(response["appinfo"]);
+                      return true;
+                    } else {
+                      throw new Error(response["message"]);
+                    }
+                  } catch (error) {
+                    console.error("FetchStats error:", error);
+                    throw error;
+                  }
+                }
+                
+                logout() {
+                  this.initialized = false;
+                  this.sessionid = null;
+                  this.user_data = null;
+                  this.app_data = null;
+                  localStorage.removeItem('keyauth_session');
+                  return true;
+                }
+                
+                // Private methods
+                async _doRequest(data) {
+                  try {
+                    const formData = new URLSearchParams();
+                    
+                    for (const key in data) {
+                      formData.append(key, data[key]);
+                    }
+                    
+                    const response = await fetch(this.url, {
+                      method: "POST",
+                      headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                      },
+                      body: formData
+                    });
+                    
+                    if (!response.ok) {
+                      throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    
+                    return await response.json();
+                  } catch (error) {
+                    console.error("Request error:", error);
+                    throw error;
+                  }
+                }
+                
+                _loadUserData(data) {
+                  this.user_data = {
+                    username: data["username"] || "User",
+                    ip: data["ip"] || "Unknown",
+                    hwid: data["hwid"] || "N/A",
+                    expires: data["subscriptions"]?.[0]?.["expiry"] || "Never",
+                    createdate: data["createdate"] || "Unknown",
+                    lastlogin: data["lastlogin"] || "Now",
+                    subscription: data["subscriptions"]?.[0]?.["subscription"] || "Premium",
+                    subscriptions: data["subscriptions"] || []
+                  };
+                  
+                  // Save session to localStorage for persistence
+                  localStorage.setItem('keyauth_session', JSON.stringify({
+                    sessionid: this.sessionid,
+                    user_data: this.user_data
+                  }));
+                }
+                
+                _loadAppData(data) {
+                  this.app_data = {
+                    numUsers: data["numUsers"] || 0,
+                    numKeys: data["numKeys"] || 0,
+                    app_ver: data["version"] || this.version,
+                    customer_panel: data["customerPanelLink"] || "#",
+                    onlineUsers: data["numOnlineUsers"] || 0
+                  };
+                }
+                
+                // Try to restore session from localStorage
+                tryRestoreSession() {
+                  const savedSession = localStorage.getItem('keyauth_session');
+                  if (savedSession) {
+                    try {
+                      const session = JSON.parse(savedSession);
+                      this.sessionid = session.sessionid;
+                      this.user_data = session.user_data;
+                      this.initialized = true;
+                      return true;
+                    } catch (e) {
+                      console.error("Failed to restore session:", e);
+                      localStorage.removeItem('keyauth_session');
+                    }
+                  }
+                  return false;
+                }
+              }
+
+              // Initialize KeyAuth client
+              const KeyAuthApp = new KeyAuthClient({
+                name: "syntharcc",
+                ownerid: "725garYxjD",
+                version: "2.3.1"
+              });
+
+              // UI Elements
+              const loginForm = document.getElementById('license-form');
+              const errorMessage = document.getElementById('error-message');
+              const loginCard = document.getElementById('login-card');
+              const dashboardCard = document.getElementById('dashboard-card');
+              const userInfoElement = document.getElementById('user-info');
+              const subscriptionInfoElement = document.getElementById('subscription-info');
+              const logoutBtn = document.getElementById('logout-btn');
+              const loadingOverlay = document.getElementById('loading-overlay');
+              const notification = document.getElementById('notification');
+              const notificationClose = document.getElementById('notification-close');
+              const userAvatar = document.getElementById('user-avatar');
+              const usernameDisplay = document.getElementById('username-display');
+              
+              // Additional elements
+              const infoUsername = document.getElementById('info-username');
+              const infoIp = document.getElementById('info-ip');
+              const infoLastlogin = document.getElementById('info-lastlogin');
+              const infoCreated = document.getElementById('info-created');
+              const licenseExpiry = document.getElementById('license-expiry');
+              const infoPlan = document.getElementById('info-plan');
+              const infoRenewal = document.getElementById('info-renewal');
+
+              // Format date function
+              function formatDate(dateStr) {
+                if (!dateStr || dateStr === "Unknown" || dateStr === "Never") return dateStr;
+                
+                try {
+                  const date = new Date(dateStr * 1000);
+                  return date.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                  });
+                } catch (e) {
+                  return dateStr;
+                }
+              }
+
+              // Show error message
+              function showError(message) {
+                errorMessage.textContent = message;
+                errorMessage.classList.add('show');
+                setTimeout(() => {
+                  errorMessage.classList.remove('show');
+                }, 5000);
+              }
+
+              // Show notification
+              function showNotification(title, message) {
+                document.querySelector('.notification-title').textContent = title;
+                document.querySelector('.notification-message').textContent = message;
+                notification.classList.add('show');
+                
+                setTimeout(() => {
+                  notification.classList.remove('show');
+                }, 5000);
+              }
+              
+              // Close notification
+              notificationClose.addEventListener('click', function() {
+                notification.classList.remove('show');
+              });
+
+              // Populate user info in dashboard
+              function populateUserInfo(userData) {
+                if (!userData) return;
+                
+                // Set username and avatar
+                const username = userData.username;
+                usernameDisplay.textContent = username;
+                userAvatar.textContent = username.charAt(0).toUpperCase();
+                
+                // Set user info section
+                infoUsername.textContent = username;
+                infoIp.textContent = userData.ip;
+                infoLastlogin.textContent = formatDate(userData.lastlogin);
+                infoCreated.textContent = formatDate(userData.createdate);
+                
+                // Set subscription info section
+                licenseExpiry.textContent = formatDate(userData.expires);
+                infoRenewal.textContent = userData.expires === "Never" ? "Lifetime" : "Auto-Renewal";
+                
+                if (userData.subscription) {
+                  infoPlan.innerHTML = `<i class="fas fa-gem"></i> ${userData.subscription}`;
+                }
+              }
+
+              // Show dashboard function
+              function showDashboard() {
+                loginCard.style.display = 'none';
+                dashboardCard.style.display = 'block';
+                populateUserInfo(KeyAuthApp.user_data);
+              }
+
+              // Show login function
+              function showLogin() {
+                dashboardCard.style.display = 'none';
+                loginCard.style.display = 'block';
+              }
+              
+              // Loading overlay functions
+              function showLoading() {
+                loadingOverlay.classList.remove('hidden');
+              }
+              
+              function hideLoading() {
+                loadingOverlay.classList.add('hidden');
+              }
+
+              // Try to restore previous session
+              showLoading();
+              setTimeout(() => {
+                if (KeyAuthApp.tryRestoreSession()) {
+                  showDashboard();
+                  hideLoading();
+                } else {
+                  showLogin();
+                  hideLoading();
+                }
+              }, 1500);
+
+              // Login form submission
+              loginForm.addEventListener('submit', async function(event) {
+                event.preventDefault();
+                const licenseKey = document.getElementById('license').value.trim();
+                
+                if (!licenseKey) {
+                  showError('Please enter a license key');
+                  return;
+                }
+                
+                try {
+                  showLoading();
+                  
+                  // First initialize KeyAuth
+                  await KeyAuthApp.init();
+                  
+                  // Verify license
+                  await KeyAuthApp.license(licenseKey);
+                  
+                  // Fetch additional stats (might fail, but that's okay)
+                  try {
+                    await KeyAuthApp.fetchStats();
+                  } catch (e) {
+                    console.warn("Could not fetch app stats:", e);
+                  }
+                  
+                  // Show dashboard
+                  showDashboard();
+                  hideLoading();
+                  
+                  // Show success notification
+                  showNotification('License Activated', 'Your premium license has been successfully activated.');
+                  
+                } catch (error) {
+                  hideLoading();
+                  showError(error.message || 'Failed to verify license');
+                }
+              });
+
+              // Logout button
+              logoutBtn.addEventListener('click', function() {
+                KeyAuthApp.logout();
+                showLogin();
+              });
+              
+              // Discord roles button
+              document.getElementById('get-discord-roles-btn').addEventListener('click', function() {
+                window.location.href = 'https://discord.gg/synthar';
+              });
+              
+              // Initialize tooltip functionality
+              document.querySelectorAll('[data-tooltip]').forEach(element => {
+                element.addEventListener('mouseenter', function() {
+                  const tooltip = this.getAttribute('data-tooltip');
+                  // Tooltip functionality is handled by CSS
+                });
+              });
+            });
+          </script>
+        </body>
+        </html>
