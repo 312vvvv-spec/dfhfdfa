@@ -1376,100 +1376,17 @@
             <p class="text-muted mt-3">Get your competitive edge with our professional-grade solution</p>
         </div>
         <div class="row justify-content-center">
-            <!-- 3 Days Plan -->
+            <!-- Single Plan -->
             <div class="col-lg-3 col-md-6 mb-4" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="100">
-                <div class="product-card compact-card">
-                    <div class="badge bg-info position-absolute top-0 end-0 m-3">3 Days</div>
-                    
-                    <h3 class="product-title text-center mb-3">Starter <span>Package</span></h3>
-                    
-                    <div class="product-features">
-                        <ul class="compact-list">
-                            <li>Instant activation</li>
-                            <li>3 Days access</li>
-                            <li>Premium Aim Assist</li>
-                            <li>All Triggerbot modes</li>
-                            <li>VIP support</li>
-                            <li>Exclusive features</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="product-price text-center mb-3">$9.99</div>
-                    
-                    <!-- Direct link button -->
-                    <button class="btn-buy" onclick="window.location.href='https://checkout.sellhub.io/payment/b9da7d8c-2a82-11f0-940a-bc241181783f'">
-                        <i class="fas fa-lock"></i> Buy Now
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Week Plan -->
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="200">
-                <div class="product-card compact-card">
-                    <div class="badge bg-primary position-absolute top-0 end-0 m-3">1 Week</div>
-                    
-                    <h3 class="product-title text-center mb-3">Weekly <span>Package</span></h3>
-                    
-                    <div class="product-features">
-                        <ul class="compact-list">
-                            <li>Instant activation</li>
-                            <li>Weekly access</li>
-                            <li>Premium Aim Assist</li>
-                            <li>All Triggerbot modes</li>
-                            <li>VIP support</li>
-                            <li>Exclusive features</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="product-price text-center mb-3">$14.99</div>
-                    
-                    <!-- Direct link button -->
-                    <button class="btn-buy" onclick="window.location.href='https://checkout.sellhub.io/payment/f4722f59-2a82-11f0-940a-bc241181783f'">
-                        <i class="fas fa-lock"></i> Buy Now
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Month Plan -->
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="300">
-                <div class="product-card compact-card">
-                    <div class="badge bg-success position-absolute top-0 end-0 m-3">1 Month</div>
-                    
-                    <h3 class="product-title text-center mb-3">Monthly <span>Package</span></h3>
-                    
-                    <div class="product-features">
-                        <ul class="compact-list">
-                            <li>Instant activation</li>
-                            <li>30 Days access</li>
-                            <li>Premium Aim Assist</li>
-                            <li>All Triggerbot modes</li>
-                            <li>VIP support</li>
-                            <li>Exclusive features</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="product-price text-center mb-3">$19.99</div>
-                    
-                    <!-- Direct link button -->
-                    <button class="btn-buy" onclick="window.location.href='https://checkout.sellhub.io/payment/0e7a2e99-2a83-11f0-940a-bc241181783f'">
-                        <i class="fas fa-lock"></i> Buy Now
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Lifetime Plan -->
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="400">
                 <div class="product-card compact-card premium-card">
-                    <!-- Animated discount banner -->
+                    <div class="badge bg-warning position-absolute top-0 end-0 m-3">Premium</div>
                     
-                    <div class="badge bg-warning position-absolute top-0 end-0 m-3">Forever</div>
-                    
-                    <h3 class="product-title text-center mb-3">Lifetime <span>Package</span></h3>
+                    <h3 class="product-title text-center mb-3">Access <span>Package</span></h3>
                     
                     <div class="product-features">
                         <ul class="compact-list">
                             <li>Instant activation</li>
-                            <li>Lifetime access</li>
+                            <li>Multiple duration options</li>
                             <li>Premium Aim Assist</li>
                             <li>All Triggerbot modes</li>
                             <li>VIP support</li>
@@ -1477,10 +1394,13 @@
                         </ul>
                     </div>
                     
-                    <div class="product-price text-center mb-3">$29.99</div>
+                    <div class="product-price text-center mb-3">Starting at $9.99</div>
                     
-                    <!-- Direct link button -->
-                    <button class="btn-buy premium-btn" onclick="window.location.href='https://checkout.sellhub.io/payment/2e83d576-2a83-11f0-940a-bc241181783f'">
+                    <!-- SellHub button -->
+                    <button class="btn-buy payment-button-sellhub" 
+                            data-tenant="valprivacy" 
+                            data-product="3" 
+                            data-variant="all">
                         <i class="fas fa-lock"></i> Buy Now
                     </button>
                 </div>
@@ -1506,10 +1426,33 @@
             </div>
         </div>
     </div>
+    
+    <script src="https://sellhub.io/payment-embed.js"></script>
 </section>
-
-    <!-- SellHub Script -->
-    <script type="module" src="https://public.sellhub.cx/embeds.js"></script>
+        
+        <!-- Payment Methods Info Bar -->
+        <div class="payment-info-bar" data-aos="fade-up" data-aos-duration="800" data-aos-delay="500">
+            <div class="payment-method-icon">
+                <i class="fab fa-cc-visa"></i>
+            </div>
+            <div class="payment-method-icon">
+                <i class="fab fa-cc-mastercard"></i>
+            </div>
+            <div class="payment-method-icon">
+                <i class="fab fa-paypal"></i>
+            </div>
+            <div class="payment-method-icon">
+                <i class="fab fa-bitcoin"></i>
+            </div>
+            <div class="payment-info-text">
+                <i class="fas fa-shield-alt"></i> Secure, encrypted transactions | Instant delivery
+            </div>
+        </div>
+    </div>
+    
+    <!-- SellHub script -->
+    <script src="https://sellhub.io/payment-embed.js"></script>
+</section>
     
     <script>
     // Custom animation and button enhancement for SellHub buttons
