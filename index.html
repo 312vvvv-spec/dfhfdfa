@@ -1377,32 +1377,35 @@
         </div>
         <div class="row justify-content-center">
             <!-- Single Plan -->
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="100">
-                <div class="product-card compact-card premium-card">
-                    <div class="badge bg-warning position-absolute top-0 end-0 m-3">Premium</div>
+            <div class="col-lg-5 col-md-8 mb-4" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="100">
+                <div class="product-card premium-card">
+                    <div class="badge bg-warning position-absolute top-0 end-0 m-3">PREMIUM</div>
                     
-                    <h3 class="product-title text-center mb-3">Access <span>Package</span></h3>
+                    <!-- Added glow effect with new styles -->
+                    <div class="premium-glow"></div>
+                    
+                    <h3 class="product-title text-center mb-4">SYNTHAR<span>.CC</span> Premium</h3>
                     
                     <div class="product-features">
-                        <ul class="compact-list">
-                            <li>Instant activation</li>
-                            <li>Multiple duration options</li>
-                            <li>Premium Aim Assist</li>
-                            <li>All Triggerbot modes</li>
-                            <li>VIP support</li>
-                            <li>Exclusive features</li>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check-circle"></i> Instant activation</li>
+                            <li><i class="fas fa-check-circle"></i> Multiple duration options</li>
+                            <li><i class="fas fa-check-circle"></i> Premium Aim Assist</li>
+                            <li><i class="fas fa-check-circle"></i> All Triggerbot modes</li>
+                            <li><i class="fas fa-check-circle"></i> VIP support</li>
+                            <li><i class="fas fa-check-circle"></i> Exclusive features</li>
                         </ul>
                     </div>
                     
-                    <div class="product-price text-center mb-3">Starting at $9.99</div>
+                    <div class="product-price text-center mb-4">Starting at <span class="highlight-price">$9.99</span></div>
                     
-                    <!-- SellHub button -->
-                    <button class="btn-buy payment-button-sellhub" 
-                            data-tenant="valprivacy" 
-                            data-product="3" 
-                            data-variant="all">
-                        <i class="fas fa-lock"></i> Buy Now
-                    </button>
+                    <!-- Enhanced attractive button -->
+                    <a href="synthar.html" class="btn-view-details">
+                        <span class="btn-content">
+                            <i class="fas fa-eye me-2"></i> View SYNTHAR.CC in Detail
+                            <i class="fas fa-arrow-right ms-2"></i>
+                        </span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -1426,29 +1429,166 @@
             </div>
         </div>
     </div>
-    
-    <script src="https://sellhub.io/payment-embed.js"></script>
 </section>
+
+<style>
+/* Enhanced Product Card Styles */
+.product-card {
+    background: var(--bg-card);
+    border-radius: 15px;
+    overflow: hidden;
+    padding: 30px;
+    position: relative;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    transition: all 0.4s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--primary-light);
+    z-index: 1;
+}
+
+.product-card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 20px 50px rgba(106, 27, 154, 0.4);
+}
+
+.premium-card {
+    background: linear-gradient(to bottom, var(--bg-card), rgba(26, 28, 35, 0.95));
+}
+
+.premium-glow {
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, rgba(156, 77, 204, 0.4) 0%, rgba(156, 77, 204, 0) 70%);
+    border-radius: 50%;
+    z-index: -1;
+    animation: pulse-glow 4s infinite;
+}
+
+@keyframes pulse-glow {
+    0% {
+        opacity: 0.4;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: scale(1.5);
+    }
+    100% {
+        opacity: 0.4;
+        transform: scale(1);
+    }
+}
+
+.product-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    background: linear-gradient(to right, var(--primary-light), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.feature-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 25px;
+}
+
+.feature-list li {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    color: #d1d1d1;
+    font-size: 1.05rem;
+}
+
+.feature-list li i {
+    color: var(--accent-secondary);
+    margin-right: 12px;
+    font-size: 1.1rem;
+}
+
+.highlight-price {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.btn-view-details {
+    display: block;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    text-align: center;
+    padding: 15px 20px;
+    border-radius: 10px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(106, 27, 154, 0.3);
+    border: none;
+    font-size: 1.1rem;
+}
+
+.btn-view-details:hover {
+    background: linear-gradient(135deg, var(--primary-light), var(--primary));
+    color: white;
+    box-shadow: 0 12px 30px rgba(106, 27, 154, 0.5);
+    transform: translateY(-5px);
+}
+
+.btn-view-details:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+}
+
+.btn-view-details:hover:before {
+    left: 100%;
+}
+
+.btn-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.badge {
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 8px 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    animation: badge-pulse 2s infinite;
+}
+
+@keyframes badge-pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 193, 7, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(255, 193, 7, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 193, 7, 0);
+    }
+}
+</style>
         
         <!-- Payment Methods Info Bar -->
-        <div class="payment-info-bar" data-aos="fade-up" data-aos-duration="800" data-aos-delay="500">
-            <div class="payment-method-icon">
-                <i class="fab fa-cc-visa"></i>
-            </div>
-            <div class="payment-method-icon">
-                <i class="fab fa-cc-mastercard"></i>
-            </div>
-            <div class="payment-method-icon">
-                <i class="fab fa-paypal"></i>
-            </div>
-            <div class="payment-method-icon">
-                <i class="fab fa-bitcoin"></i>
-            </div>
-            <div class="payment-info-text">
-                <i class="fas fa-shield-alt"></i> Secure, encrypted transactions | Instant delivery
-            </div>
-        </div>
-    </div>
+        
+        <!-- Payment Methods Info Bar -->
     
     <!-- SellHub script -->
     <script src="https://sellhub.io/payment-embed.js"></script>
